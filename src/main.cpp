@@ -22,19 +22,16 @@ void sendSIPMessage(SipMessage message);
 // Process incoming sip messages and changes status of the calldetails.
 void receiveSIPMessage(SipMessage message, CallDetails *callDetails);
 
-
 void registerUser(CallDetails *callDetails);
 void initiateCall(CallDetails *callDetails);
 void terminateCall(CallDetails *callDetails);
 void parseIncomingMessage(CallDetails *callDetails);
 
-//For stopping the receiveSipThread safely.
+// For stopping the receiveSipThread safely.
 atomic_bool running = true;
 
-//Udp Client for sip messaging.
+// Udp Client for sip messaging.
 UdpClient *udp;
-
-
 
 int main()
 {

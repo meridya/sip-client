@@ -1,0 +1,21 @@
+networks:
+  locale:
+    driver: bridge
+    name: locale
+volumes:
+  cppenv_volume:
+services:
+  cppenv:
+    image: ${REGISTRY}/${ORG}/${CONTAINER_NAME}:${VERSION}
+    container_name: ${CONTAINER_NAME}
+    build:
+      dockerfile: Dockerfile
+      context: "."
+    ports:
+      - 2032:22
+    networks:
+      - locale
+    volumes:
+     - cppenv_volume:/root/data
+     - /root/.ssh:/root/.ssh
+    restart: always

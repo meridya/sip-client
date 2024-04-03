@@ -1,0 +1,21 @@
+networks:
+  locale:
+    driver: bridge
+    name: locale
+volumes:
+  asterisk_volume:
+services:
+  mockasterisk:
+    image: ${REGISTRY}/${ORG}/${CONTAINER_NAME}:${VERSION}
+    container_name: ${CONTAINER_NAME}
+    build:
+      dockerfile: Dockerfile
+      context: "."
+    ports:
+      - 2031:22
+    networks:
+      - locale
+    volumes:
+     - asterisk_volume:/etc/asterisk
+     - /root/.ssh:/root/.ssh
+    restart: always

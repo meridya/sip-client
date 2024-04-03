@@ -18,15 +18,21 @@ class CallDetails
 
     typedef struct
     {
+        //CallerUri
         string callerURI;
+        //CalleeeUri
         string calleeURI;
+        //CallId
         string callId;
+        //CallStates
         callStates callState;
     } CallStruct;
 
 public:
+    //Generates call structure
     CallDetails(string callId,string callerURI,string calleURI);
     virtual ~CallDetails();
+    //
     void setCallId(string callId);
     void setCallerURI(string callerUri);
     void setCalleeURI(string calleeUri);
@@ -38,6 +44,8 @@ public:
 
 private:
     CallStruct callStruct;
+    // Call Struct parameters can be changed via receiveMessage thread and the main thread so 
+    // all assignments must be safe.
     mutex readCallStructMutex;
 };
 

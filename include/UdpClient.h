@@ -23,19 +23,33 @@ class UdpClient {
         //Deconstructor
         virtual ~UdpClient();
         //Send message To udp client.
+        //Pushes the message to sendQueue queue.
         void pushMessageToSendQ(string message);
         //Get message from udp Client.
+        //Pops message from recvQ .
         string popMessageFromRecvQ();
     private:
+        // UDP socket.
         int sockfd;
         struct sockaddr_in serverAddr;
-        queue<string> sendQueue,recvQueue;
+        //Queueing the messages for sending to socket.
+        queue<string> sendQueue;
+        //Queueing the messages from receiving from socket.
+        queue<string> recvQueue;
         mutex sendMutex,recvMutex;
-        thread sendThread,recvThread;
+        //Sentthread is used for getting data from sendQueue and sending to socket.
+        thread sendThread;
+        //Receive Thread is for getting data from socket and pushing it to RecvQueue.
+        thread recvThread;
+        //pops data from sendQueue and sends it to socket. In our case it is a sipMessage.
+        //Running as thread.
         void processSendQueue();
+        //Used for stopping the threads safely.
         atomic_bool running;
+        //gets data from socket and pushes it to recvQueue. 
+        //Running as thread.
         void processReceiveQueue();
-
+        //Pushes message to RecvQueue.
         void pushMessageToRecvQ(string message);
 
 };

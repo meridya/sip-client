@@ -22,7 +22,7 @@ UdpClient::UdpClient(string serverAddress,int port) : running(true)
 
 
     memcpy(&serverAddr,res->ai_addr,res->ai_addrlen);
-    // addLen= res->ai_addrlen;
+    
     freeaddrinfo(res);
 
 
@@ -73,7 +73,7 @@ void UdpClient::processSendQueue(){
         }
         if(!outgoingMessage.empty()){
             sendto(sockfd,outgoingMessage.c_str(),outgoingMessage.length(),0,(const struct sockaddr*)&serverAddr,sizeof(serverAddr));
-            printf("Message Sent\n");
+            
         }else{
             //Sleep for a short duration to prevent busy waiting.
             this_thread::sleep_for(chrono::milliseconds(100));

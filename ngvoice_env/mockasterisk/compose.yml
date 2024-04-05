@@ -16,6 +16,7 @@ services:
     networks:
       - locale
     volumes:
-     - asterisk_volume:/etc/asterisk
+     - ./extensions.conf:/etc/asterisk/extensions.conf
+     - ./pjsip.conf:/etc/asterisk/pjsip.conf
      - /root/.ssh:/root/.ssh
     restart: always

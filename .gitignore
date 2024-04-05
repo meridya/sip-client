@@ -2,3 +2,5 @@ samples
 pjproject/
 output/
 .vscode/
+src/*.o
+src/*.d
